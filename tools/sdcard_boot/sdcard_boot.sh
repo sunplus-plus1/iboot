@@ -16,7 +16,7 @@ TOP=../../..
 # 7. Copy root partition to output file 'ISP_SD_BOOOT.img'.
 # 8. Create partition table.
 
-MKFS="fakeroot -- mke2fs"
+FAKEROOT="fakeroot --"
 RESIZE=$TOP/linux/rootfs/tools/resize2fs
 OUTPATH=$TOP/out/boot2linux_SDcard
 FAT_FILE_IN=$OUTPATH
@@ -32,6 +32,7 @@ NONOS_IMG=a926.img
 RC_SDCARDBOOTDIR=$ROOT_DIR_IN/etc/init.d
 RC_SDCARDBOOTFILE=rc.sdcardboot
 FIP_IMG=fip.img
+TMP_DIR=$TOP/linux/rootfs/initramfs/.tmp
 
 # Size of FAT32 partition size (unit: M)
 FAT_IMG_SIZE_M=256
@@ -137,7 +138,7 @@ partition_size_2=$((sz/1024/1024+20))
 echo '###### do mke2fs cmd (mke2fs version needs to bigger than 1.45.1) ########'
 chmod 777 $ROOT_DIR_IN/bin/busybox
 rm -f "$ROOT_IMG"
-$MKFS -t ext4 -b 4096 -d "$ROOT_DIR_IN" "$ROOT_IMG" "$((partition_size_2))M"
+$FAKEROOT /bin/bash -c "./setting_attr.py $ROOT_DIR_IN ${TMP_DIR}/attr.list; mke2fs -t ext4 -b 4096 -d $ROOT_DIR_IN $ROOT_IMG $((partition_size_2))M"
 if [ $? -ne 0 ]; then
 	exit
 fi
