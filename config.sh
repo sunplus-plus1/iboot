@@ -888,7 +888,7 @@ list_config()
 		$ECHO $COLOR_GREEN"Select rootfs:"$COLOR_ORIGIN
 		$ECHO $COLOR_YELLOW"[1] BusyBox"$COLOR_ORIGIN
 		$ECHO $COLOR_YELLOW"[2] Yocto"$COLOR_ORIGIN
-		$ECHO $COLOR_YELLOW"[3] Ubuntu SERVER 20.04 for armhf(32bit)"$COLOR_ORIGIN
+		$ECHO $COLOR_YELLOW"[3] Ubuntu Server 20.04"$COLOR_ORIGIN
 		read sel
 		case "$sel" in
 		"2")
